@@ -4,12 +4,12 @@ const app = express();
 const port = process.env.PORT || 4001;
 
 app.get('/', (req, res) => {
-    require('child_process').exec('shutdown -r now', (err, stdout, stderr) => {
+    require('child_process').exec('sudo shutdown -r now', (err, stdout, stderr) => {
         if (err) {
-            return res.send(500, err.message);
+            return res.status(500).send({body: err.message});
         }
 
-        res.send(stdout);
+        res.send({body: stdout});
     });
 });
 
